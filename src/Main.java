@@ -1,5 +1,3 @@
-import java.util.Date;
-
 public class Main {
     public static void main(String[] args) {
         int vars = 3;
@@ -9,13 +7,28 @@ public class Main {
                 {2f, 3f, 0f},
                 {4f, 3f, -1f},
         };
-        NaiveGaussianEliminationSinglePrecision test = new NaiveGaussianEliminationSinglePrecision(vars, coeff, constants);
+        NaiveSinglePrecision single = new NaiveSinglePrecision(vars, coeff, constants);
 
         final long startTime = System.nanoTime();
-        test.solve();
+        single.solve();
         final long duration = System.nanoTime() - startTime;
 
-        System.out.println(test.getSolution());
+        System.out.println(single.getSolutionString());
         System.out.println(duration);
+
+        int vars1 = 3;
+        double[] constants1 = {1, 0, -2};
+        double[][] coeff1 = {
+                {3, 4, 1},
+                {2, 3, 0},
+                {4, 3, -1},
+        };
+        NaiveDoublePrecision doublePrecision = new NaiveDoublePrecision(vars1, coeff1, constants1);
+        final long startTime1 = System.nanoTime();
+        doublePrecision.solve();
+        final long duration1 = System.nanoTime() - startTime1;
+
+        System.out.println(doublePrecision.getSolutionString());
+        System.out.println(duration1);
     }
 }

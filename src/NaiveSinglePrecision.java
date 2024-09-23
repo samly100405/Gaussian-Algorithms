@@ -1,12 +1,12 @@
 import java.util.Arrays;
 
-public final class NaiveGaussianEliminationSinglePrecision {
+public final class NaiveSinglePrecision implements LinearSolver {
     private final float[][] coefficients;
     private final float[] constants;
     private final float[] solutions;
     private final int variables;
 
-    public NaiveGaussianEliminationSinglePrecision(int variables, float[][] coefficients, float[] constants) {
+    public NaiveSinglePrecision(int variables, float[][] coefficients, float[] constants) {
         this.variables = variables;
         this.coefficients = coefficients;
         this.constants = constants;
@@ -49,7 +49,7 @@ public final class NaiveGaussianEliminationSinglePrecision {
 
     // This design is because I will need to implement the same alg with a different
     // primitive for double precision.
-    public String getSolution() {
+    public String getSolutionString() {
         return Arrays.toString(solutions);
     }
 }
