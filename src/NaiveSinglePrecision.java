@@ -5,6 +5,7 @@ public final class NaiveSinglePrecision implements LinearSolver {
     private final float[] constants;
     private final float[] solutions;
     private final int variables;
+    private boolean solved = false;
 
     public NaiveSinglePrecision(int variables, float[][] coefficients, float[] constants) {
         this.variables = variables;
@@ -15,6 +16,7 @@ public final class NaiveSinglePrecision implements LinearSolver {
     }
 
     public void solve() {
+        if(solved) return;
         // Forward elimination
 
         // Pivot goes from 0 to variables - 1
@@ -45,11 +47,14 @@ public final class NaiveSinglePrecision implements LinearSolver {
             }
             solutions[i] = sum / coefficients[i][i];
         }
+
+        solved = true;
     }
 
     // This design is because I will need to implement the same alg with a different
     // primitive for double precision.
     public String getSolutionString() {
+        if(!solved) solve();
         return Arrays.toString(solutions);
     }
 }
