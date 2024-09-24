@@ -9,8 +9,14 @@ public final class NaiveSinglePrecision implements LinearSolver {
 
     public NaiveSinglePrecision(int variables, float[][] coefficients, float[] constants) {
         this.variables = variables;
-        this.coefficients = coefficients;
-        this.constants = constants;
+
+        this.coefficients = new float[variables][variables];
+        for (int i = 0; i < variables; i++) {
+            System.arraycopy(coefficients[i], 0, this.coefficients[i], 0, variables);
+        }
+
+        this.constants = new float[variables];
+        System.arraycopy(constants, 0, this.constants, 0, variables);
 
         this.solutions = new float[variables];
     }
