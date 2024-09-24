@@ -1,3 +1,7 @@
+import cli.Args;
+import com.beust.jcommander.JCommander;
+import solvers.*;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -21,6 +25,24 @@ public class Main {
         return new NaiveDoublePrecision(variables, coefficients, constants);
     }
 
+    private static void readFloat(Path filePath, float[][] coefficients, float[] constants) throws IOException {
+        Scanner s = new Scanner(filePath);
+        int vars = s.nextInt();
+
+        coefficients = new float[vars][vars];
+        constants = new float[vars];
+
+        for (int row = 0; row < vars; row++) {
+            for (int col = 0; col < vars; col++) {
+                coefficients[row][col] = s.nextFloat();
+            }
+        }
+
+        for (int row = 0; row < vars; row++) {
+            constants[row] = s.nextFloat();
+        }
+    }
+
     public static void main(String[] args) {
         // TODO: implement file reading
         int vars = 0;
@@ -30,45 +52,23 @@ public class Main {
         double[][] coefficientsDouble;
 
         final String fileName = "data/sys1.lin";
-        Path filePath = Paths.get(fileName);
+
+        Args a = new Args();
+        JCommander.newBuilder()
+                .addObject(a)
+                .build()
+                .parse(args);
+
         try {
-            Scanner s = new Scanner(filePath);
-            vars = s.nextInt();
-            System.out.println(vars);
+            Path filePath = Paths.get(fileName);
+            readFloat(filePath, coefficientsFloat, constantsFloat);
+            // fuck
 
-            // assume is single precision
-            coefficientsFloat = new float[vars][vars];
-            constantsFloat = new float[vars];
-
-            for (int row = 0; row < vars; row++) {
-                for (int col = 0; col < vars; col++) {
-                    coefficientsFloat[row][col] = s.nextFloat();
-                }
-            }
-
-            for (int i = 0; i < vars; i++) {
-                constantsFloat[i] = s.nextFloat();
-            }
-
-
-            LinearSolver naiveSingle = generateSolver(vars, coefficientsFloat, constantsFloat, false);
-            LinearSolver sPPSingle = generateSolver(vars, coefficientsFloat, constantsFloat, true);
-
-            System.out.println(naiveSingle.getSolutionString());
-            System.out.println(sPPSingle.getSolutionString());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        }
+        catch (IOException e) {
+            System.out.println(e.getMessage());
         }
 
 
-//        LinearSolver naiveSingle = generateSolver(vars, coefficientsFloat, constantsFloat, false);
-//        LinearSolver sPPSingle   = generateSolver(vars, coefficientsFloat, constantsFloat, true);
-//        LinearSolver naiveDouble = generateSolver(vars, coefficientsDouble, constantsDouble, false);
-//        LinearSolver sPPDouble   = generateSolver(vars, coefficientsDouble, constantsDouble, true);
-//
-//        System.out.println(naiveSingle.getSolutionString());
-//        System.out.println(sPPSingle.getSolutionString());
-//        System.out.println(naiveDouble.getSolutionString());
-//        System.out.println(sPPDouble.getSolutionString());
     }
 }

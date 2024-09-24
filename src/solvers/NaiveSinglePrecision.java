@@ -1,3 +1,7 @@
+package solvers;
+
+import solvers.LinearSolver;
+
 import java.util.Arrays;
 
 public final class NaiveSinglePrecision implements LinearSolver {

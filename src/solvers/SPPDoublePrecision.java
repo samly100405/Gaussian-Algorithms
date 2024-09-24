@@ -1,33 +1,37 @@
+package solvers;
+
+import solvers.LinearSolver;
+
 import java.util.Arrays;
 
-public class SPPSinglePrecision implements LinearSolver{
-    private final float[][] coefficients;
-    private final float[] constants;
-    private final float[] solutions;
+public class SPPDoublePrecision implements LinearSolver {
+    private final double[][] coefficients;
+    private final double[] constants;
+    private final double[] solutions;
     private final int[] idx;
-    private final float[] scalingFactors;
+    private final double[] scalingFactors;
     private final int variables;
     private boolean solved = false;
 
-    public SPPSinglePrecision(int variables, float[][] coefficients, float[] constants) {
+    public SPPDoublePrecision(int variables, double[][] coefficients, double[] constants) {
         this.variables = variables;
 
-        this.coefficients = new float[variables][variables];
+        this.coefficients = new double[variables][variables];
         for (int i = 0; i < variables; i++) {
             System.arraycopy(coefficients[i], 0, this.coefficients[i], 0, variables);
         }
 
-        this.constants = new float[variables];
+        this.constants = new double[variables];
         System.arraycopy(constants, 0, this.constants, 0, variables);
 
-        this.solutions = new float[variables];
+        this.solutions = new double[variables];
 
         idx = new int[variables];
         for (int i = 0; i < variables; i++) {
             idx[i] = i;
         }
 
-        scalingFactors = new float[variables];
+        scalingFactors = new double[variables];
     }
 
     public void solve() {
@@ -36,9 +40,9 @@ public class SPPSinglePrecision implements LinearSolver{
 
         // Init scaling factors
         for (int row = 0; row < variables; row++) {
-            float max = Math.abs(coefficients[row][0]);
+            double max = Math.abs(coefficients[row][0]);
             for (int col = 1; col < variables; col++) {
-                float val = Math.abs(coefficients[row][col]);
+                double val = Math.abs(coefficients[row][col]);
                 if (val > max) max = val;
             }
             scalingFactors[row] = max;
@@ -60,7 +64,7 @@ public class SPPSinglePrecision implements LinearSolver{
             // Go through each row below the pivot
             for (int row = pivot + 1; row < variables; row++) {
                 // Each row gets scaled so that a coefficient can be eliminated
-                float scale = coefficients[idx[row]][pivot] / coefficients[idx[pivot]][pivot];
+                double scale = coefficients[idx[row]][pivot] / coefficients[idx[pivot]][pivot];
 
                 // Eliminate
                 for (int col = pivot; col < variables; col++) {
@@ -77,7 +81,7 @@ public class SPPSinglePrecision implements LinearSolver{
         solutions[variables-1] = constants[idx[variables-1]] / coefficients[idx[variables-1]][variables-1];
 
         for (int i = variables-2; i >= 0; i--) {
-            float sum = constants[idx[i]];
+            double sum = constants[idx[i]];
             for (int j = i + 1; j < variables; j++) {
                 sum = sum -coefficients[idx[i]][j] * solutions[j];
             }
