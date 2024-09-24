@@ -5,16 +5,24 @@ public class NaiveDoublePrecision implements LinearSolver {
     private final double[] constants;
     private final double[] solutions;
     private final int variables;
+    private boolean solved = false;
 
     public NaiveDoublePrecision(int variables, double[][] coefficients, double[] constants) {
         this.variables = variables;
-        this.coefficients = coefficients;
-        this.constants = constants;
+
+        this.coefficients = new double[variables][variables];
+        for (int i = 0; i < variables; i++) {
+            System.arraycopy(coefficients[i], 0, this.coefficients[i], 0, variables);
+        }
+
+        this.constants = new double[variables];
+        System.arraycopy(constants, 0, this.constants, 0, variables);
 
         this.solutions = new double[variables];
     }
 
     public void solve() {
+        if (solved) return;
         // Forward elimination
 
         // Pivot goes from 0 to variables - 1
@@ -45,11 +53,14 @@ public class NaiveDoublePrecision implements LinearSolver {
             }
             solutions[i] = sum / coefficients[i][i];
         }
+
+        solved = true;
     }
 
     // This design is because I will need to implement the same alg with a different
     // primitive for double precision.
     public String getSolutionString() {
+        if (!solved) solve();
         return Arrays.toString(solutions);
     }
 }
