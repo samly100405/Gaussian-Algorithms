@@ -1,34 +1,37 @@
 public class Main {
+
+    private static LinearSolver generateSolver(int variables, float[][] coefficients, float[] constants, boolean spp) {
+        if (spp) return null; // TODO: implement SPP
+
+        return new NaiveSinglePrecision(variables, coefficients, constants);
+    }
+
+    private static LinearSolver generateSolver(int variables, double[][] coefficients, double[] constants, boolean spp) {
+        if (spp) return null; // TODO: implement SPP
+
+        return new NaiveDoublePrecision(variables, coefficients, constants);
+    }
+
     public static void main(String[] args) {
+        // TODO: implement file reading
         int vars = 3;
-        float[] constants = {1, 0, -2};
-        float[][] coeff = {
+        float[] constantsFloat = {1, 0, -2};
+        float[][] coefficientsFloat = {
                 {3f, 4f, 1f},
                 {2f, 3f, 0f},
                 {4f, 3f, -1f},
         };
-        NaiveSinglePrecision single = new NaiveSinglePrecision(vars, coeff, constants);
-
-        final long startTime = System.nanoTime();
-        single.solve();
-        final long duration = System.nanoTime() - startTime;
-
-        System.out.println(single.getSolutionString());
-        System.out.println(duration);
-
-        int vars1 = 3;
-        double[] constants1 = {1, 0, -2};
-        double[][] coeff1 = {
+        double[] constantsDouble = {1, 0, -2};
+        double[][] coefficientsDouble = {
                 {3, 4, 1},
                 {2, 3, 0},
                 {4, 3, -1},
         };
-        NaiveDoublePrecision doublePrecision = new NaiveDoublePrecision(vars1, coeff1, constants1);
-        final long startTime1 = System.nanoTime();
-        doublePrecision.solve();
-        final long duration1 = System.nanoTime() - startTime1;
 
+        LinearSolver singlePrecision = generateSolver(vars, coefficientsFloat, constantsFloat, false);
+        LinearSolver doublePrecision = generateSolver(vars, coefficientsDouble, constantsDouble, false);
+
+        System.out.println(singlePrecision.getSolutionString());
         System.out.println(doublePrecision.getSolutionString());
-        System.out.println(duration1);
     }
 }
