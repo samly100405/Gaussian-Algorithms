@@ -25,6 +25,51 @@ public class Main {
         return new NaiveDoublePrecision(variables, coefficients, constants);
     }
 
+    private static LinearSolver generateSolver(Args args)
+    throws IOException {
+        Path filePath = Paths.get(args.getFileName());
+        Scanner s = new Scanner(filePath);
+
+        int vars = s.nextInt();
+
+
+        if (args.isDouble()){
+            double[][] coefficients = new double[vars][vars];
+            double[] constants    = new double[vars];
+
+            for (int row = 0; row < vars; row++) {
+                for (int col = 0; col < vars; col++) {
+                    coefficients[row][col] = s.nextFloat();
+                }
+            }
+
+            for (int i = 0; i < vars; i++) {
+                constants[i] = s.nextFloat();
+            }
+
+            if (args.isSPP()) return new SPPDoublePrecision(vars, coefficients, constants);
+            return new NaiveDoublePrecision(vars, coefficients, constants);
+        }
+        else {
+            float[][] coefficients = new float[vars][vars];
+            float[] constants      = new float[vars];
+
+
+            for (int row = 0; row < vars; row++) {
+                for (int col = 0; col < vars; col++) {
+                    coefficients[row][col] = s.nextFloat();
+                }
+            }
+
+            for (int i = 0; i < vars; i++) {
+                constants[i] = s.nextFloat();
+            }
+
+            if (args.isSPP()) return new SPPSinglePrecision(vars, coefficients, constants);
+            return new NaiveSinglePrecision(vars, coefficients, constants);
+        }
+    }
+
     private static void readFloat(Path filePath, float[][] coefficients, float[] constants) throws IOException {
         Scanner s = new Scanner(filePath);
         int vars = s.nextInt();
@@ -59,13 +104,11 @@ public class Main {
                 .build()
                 .parse(args);
 
-        try {
-            Path filePath = Paths.get(fileName);
-            readFloat(filePath, coefficientsFloat, constantsFloat);
-            // fuck
 
-        }
-        catch (IOException e) {
+        try {
+            LinearSolver solver = generateSolver(a);
+            System.out.println(solver.getSolutionString());
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
 
