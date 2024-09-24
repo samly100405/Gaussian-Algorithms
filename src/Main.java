@@ -9,7 +9,9 @@ public class Main {
     }
 
     private static LinearSolver generateSolver(int variables, double[][] coefficients, double[] constants, boolean spp) {
-        if (spp) return null; // TODO: implement SPP
+        if (spp) {
+            return new SPPDoublePrecision(variables, coefficients, constants);
+        }
 
         return new NaiveDoublePrecision(variables, coefficients, constants);
     }
@@ -33,10 +35,11 @@ public class Main {
         LinearSolver naiveSingle = generateSolver(vars, coefficientsFloat, constantsFloat, false);
         LinearSolver sPPSingle   = generateSolver(vars, coefficientsFloat, constantsFloat, true);
         LinearSolver naiveDouble = generateSolver(vars, coefficientsDouble, constantsDouble, false);
-//        LinearSolver SPPDouble   = generateSolver(vars, coefficientsDouble, constantsDouble, true);
+        LinearSolver sPPDouble   = generateSolver(vars, coefficientsDouble, constantsDouble, true);
 
         System.out.println(naiveSingle.getSolutionString());
         System.out.println(sPPSingle.getSolutionString());
         System.out.println(naiveDouble.getSolutionString());
+        System.out.println(sPPDouble.getSolutionString());
     }
 }
