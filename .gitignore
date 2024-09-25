@@ -1,7 +1,24 @@
+<<<<<<< HEAD
 ### IntelliJ IDEA ###
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+=======
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### IntelliJ IDEA ###
+.idea/workspace.xml
+.idea/modules.xml
+.idea/jarRepositories.xml
+.idea/compiler.xml
+.idea/libraries/
+*.iws
+*.iml
+*.ipr
+>>>>>>> b2e8af0 (update gitignore)
 
 ### Eclipse ###
 .apt_generated
@@ -11,9 +28,12 @@ out/
 .settings
 .springBeans
 .sts4-cache
+<<<<<<< HEAD
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
+=======
+>>>>>>> b2e8af0 (update gitignore)
 
 ### NetBeans ###
 /nbproject/private/
@@ -21,11 +41,21 @@ bin/
 /dist/
 /nbdist/
 /.nb-gradle/
+<<<<<<< HEAD
+=======
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+>>>>>>> b2e8af0 (update gitignore)
 
 ### VS Code ###
 .vscode/
 
 ### Mac OS ###
+<<<<<<< HEAD
 .DS_Store
 
 .idea
+=======
+.DS_Store
+>>>>>>> b2e8af0 (update gitignore)
