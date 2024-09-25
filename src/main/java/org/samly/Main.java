@@ -4,6 +4,7 @@ import com.beust.jcommander.JCommander;
 import org.samly.cli.Args;
 import org.samly.solvers.*;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -68,7 +69,11 @@ public class Main {
 
         try {
             LinearSolver solver = generateSolver(a);
-            System.out.println(solver.getSolutionString());
+            String sol = solver.getSolutionString();
+            FileWriter f = new FileWriter(a.getOutputFile());
+            f.write(sol);
+            f.close();
+            System.out.println(sol);
         }
         catch (NullPointerException e) {
             System.out.println("You must provide a file name.");

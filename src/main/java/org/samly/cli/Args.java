@@ -3,14 +3,6 @@ package org.samly.cli;
 import com.beust.jcommander.Parameter;
 
 public class Args {
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
     @Parameter(description = "Linear System file")
     private String fileName;
 
@@ -20,19 +12,22 @@ public class Args {
     @Parameter(names = {"--spp"}, description = "enable scaled partial pivoting")
     private boolean isSPP = false;
 
-    public boolean isDouble() {
-        return isDouble;
+    @Parameter(names = {"-o", "--output"}, description = "set output file")
+    private String outputFile = "data/sys1.sol"; // This is default for assignment
+
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setDouble(boolean aDouble) {
-        isDouble = aDouble;
+    public boolean isDouble() {
+        return isDouble;
     }
 
     public boolean isSPP() {
         return isSPP;
     }
 
-    public void setSPP(boolean SPP) {
-        isSPP = SPP;
+    public String getOutputFile() {
+        return outputFile;
     }
 }
