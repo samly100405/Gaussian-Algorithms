@@ -12,6 +12,9 @@ public class Args {
     @Parameter(names = {"--spp"}, description = "enable scaled partial pivoting")
     private boolean isSPP = false;
 
+    @Parameter(names = {"--steps"}, description = "shows steps of alg")
+    private boolean showSteps = false;
+
     @Parameter(names = {"-o", "--output"}, description = "set output file")
     private String outputFile = "data/sys1.sol"; // This is default for assignment
 
@@ -41,5 +44,9 @@ public class Args {
         else          out += "Single Precision\n";
 
         return out;
+    }
+
+    public boolean isShowSteps() {
+        return showSteps;
     }
 }

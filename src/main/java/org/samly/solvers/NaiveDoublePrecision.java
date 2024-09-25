@@ -7,10 +7,12 @@ public class NaiveDoublePrecision implements LinearSolver {
     private final double[] constants;
     private final double[] solutions;
     private final int variables;
+    private final boolean showSteps;
     private boolean solved = false;
 
-    public NaiveDoublePrecision(int variables, double[][] coefficients, double[] constants) {
+    public NaiveDoublePrecision(int variables, double[][] coefficients, double[] constants, boolean showSteps) {
         this.variables = variables;
+        this.showSteps = showSteps;
 
         this.coefficients = new double[variables][variables];
         for (int i = 0; i < variables; i++) {
@@ -42,7 +44,7 @@ public class NaiveDoublePrecision implements LinearSolver {
                 // do same for constants
                 constants[row] -= scale * constants[pivot];
             }
-            printSystem();
+            if (showSteps) printSystem();
         }
 
 

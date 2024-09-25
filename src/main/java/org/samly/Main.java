@@ -34,8 +34,8 @@ public class Main {
                 constants[i] = s.nextFloat();
             }
 
-            if (args.isSPP()) return new SPPDoublePrecision(vars, coefficients, constants);
-            return new NaiveDoublePrecision(vars, coefficients, constants);
+            if (args.isSPP()) return new SPPDoublePrecision(vars, coefficients, constants, args.isShowSteps());
+            return new NaiveDoublePrecision(vars, coefficients, constants, args.isShowSteps());
         }
         else {
             float[][] coefficients = new float[vars][vars];
@@ -52,8 +52,8 @@ public class Main {
                 constants[i] = s.nextFloat();
             }
 
-            if (args.isSPP()) return new SPPSinglePrecision(vars, coefficients, constants);
-            return new NaiveSinglePrecision(vars, coefficients, constants);
+            if (args.isSPP()) return new SPPSinglePrecision(vars, coefficients, constants, args.isShowSteps());
+            return new NaiveSinglePrecision(vars, coefficients, constants, args.isShowSteps());
         }
     }
 
@@ -69,11 +69,14 @@ public class Main {
 
         try {
             LinearSolver solver = generateSolver(a);
-            String sol = solver.getSolutionString();
+            long start = System.nanoTime();
+            String solution = solver.getSolutionString();
+            long duration = System.nanoTime() - start;
             FileWriter f = new FileWriter(a.getOutputFile());
-            f.write(sol);
+            f.write(solution);
             f.close();
-            System.out.println(sol);
+            System.out.println("Solution: " + solution);
+            System.out.println("Runtime (nanoseconds): " + duration);
         }
         catch (NullPointerException e) {
             System.out.println("You must provide a file name.");

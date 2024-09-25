@@ -9,10 +9,12 @@ public class SPPDoublePrecision implements LinearSolver {
     private final int[] idx;
     private final double[] scalingFactors;
     private final int variables;
+    private final boolean showSteps;
     private boolean solved = false;
 
-    public SPPDoublePrecision(int variables, double[][] coefficients, double[] constants) {
+    public SPPDoublePrecision(int variables, double[][] coefficients, double[] constants, boolean showSteps) {
         this.variables = variables;
+        this.showSteps = showSteps;
 
         this.coefficients = new double[variables][variables];
         for (int i = 0; i < variables; i++) {
@@ -73,7 +75,7 @@ public class SPPDoublePrecision implements LinearSolver {
                 constants[idx[row]] -= scale * constants[idx[pivot]];
 
             }
-            printSystem();
+            if (showSteps) printSystem();
         }
 
 

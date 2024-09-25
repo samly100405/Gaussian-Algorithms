@@ -9,10 +9,12 @@ public class SPPSinglePrecision implements LinearSolver {
     private final int[] idx;
     private final float[] scalingFactors;
     private final int variables;
+    private final boolean showSteps;
     private boolean solved = false;
 
-    public SPPSinglePrecision(int variables, float[][] coefficients, float[] constants) {
+    public SPPSinglePrecision(int variables, float[][] coefficients, float[] constants, boolean showSteps) {
         this.variables = variables;
+        this.showSteps = showSteps;
 
         this.coefficients = new float[variables][variables];
         for (int i = 0; i < variables; i++) {
@@ -72,7 +74,7 @@ public class SPPSinglePrecision implements LinearSolver {
                 // do same for constants
                 constants[idx[row]] -= scale * constants[idx[pivot]];
             }
-            printSystem();
+            if (showSteps) printSystem();
         }
 
 
