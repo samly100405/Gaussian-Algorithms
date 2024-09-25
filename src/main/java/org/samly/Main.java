@@ -65,7 +65,7 @@ public class Main {
                 .addObject(a)
                 .build()
                 .parse(args);
-
+        System.out.println(a.getDescription());
 
         try {
             LinearSolver solver = generateSolver(a);
@@ -73,7 +73,6 @@ public class Main {
             FileWriter f = new FileWriter(a.getOutputFile());
             f.write(sol);
             f.close();
-            System.out.println(a.getDescription());
             System.out.println(sol);
         }
         catch (NullPointerException e) {

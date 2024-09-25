@@ -42,10 +42,7 @@ public final class NaiveSinglePrecision implements LinearSolver {
                 // do same for constants
                 constants[row] -= scale * constants[pivot];
             }
-            for (int i = 0; i < variables; i++) {
-                System.out.println(Arrays.toString(coefficients[i]) + "\t" +constants[i]);
-            }
-            System.out.println("~~~");
+            printSystem();
         }
 
 
@@ -61,6 +58,13 @@ public final class NaiveSinglePrecision implements LinearSolver {
         }
 
         solved = true;
+    }
+
+    private void printSystem() {
+        for (int i = 0; i < variables; i++) {
+            System.out.println(Arrays.toString(coefficients[i]) + "\t" +constants[i]);
+        }
+        System.out.println("~~~");
     }
 
     // This design is because I will need to implement the same alg with a different

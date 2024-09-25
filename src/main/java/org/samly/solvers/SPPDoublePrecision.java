@@ -73,10 +73,7 @@ public class SPPDoublePrecision implements LinearSolver {
                 constants[idx[row]] -= scale * constants[idx[pivot]];
 
             }
-            for (int i = 0; i < variables; i++) {
-                System.out.println(Arrays.toString(coefficients[i]) + "\t" +constants[i]);
-            }
-            System.out.println("~~~");
+            printSystem();
         }
 
 
@@ -92,6 +89,13 @@ public class SPPDoublePrecision implements LinearSolver {
         }
 
         solved = true;
+    }
+
+    private void printSystem() {
+        for (int i = 0; i < variables; i++) {
+            System.out.println(Arrays.toString(coefficients[i]) + "\t" +constants[i]);
+        }
+        System.out.println("~~~");
     }
 
     // This design is because I will need to implement the same alg with a different
