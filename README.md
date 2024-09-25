@@ -16,5 +16,5 @@
 
 1. Make sure you have run `mvn install`.
 2. Give the scripts execute permissions.
-3. The `solve.bash` script will sys1 using all four methods and output to respective file.
+3. The `solve.bash sys1` script will sys1 using all four methods and output to respective file.
 4. The `clean.bash` script will remove all `.sol` files in the `data/` directory.
