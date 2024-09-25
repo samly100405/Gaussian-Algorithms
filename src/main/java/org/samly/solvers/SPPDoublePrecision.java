@@ -103,8 +103,13 @@ public class SPPDoublePrecision implements LinearSolver {
     // This design is because I will need to implement the same alg with a different
     // primitive for double precision.
     public String getSolutionString() {
-        if(!solved) solve();
-        return Arrays.toString(solutions);
+        if (!solved) solve();
+
+        StringBuilder out = new StringBuilder();
+        for (double n : solutions) {
+            out.append(n).append(" ");
+        }
+        return out.toString();
     }
 
     private void swapRow(int a, int b) {

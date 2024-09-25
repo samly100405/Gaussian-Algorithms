@@ -73,7 +73,12 @@ public class NaiveDoublePrecision implements LinearSolver {
     // primitive for double precision.
     public String getSolutionString() {
         if (!solved) solve();
-        return Arrays.toString(solutions);
+
+        StringBuilder out = new StringBuilder();
+        for (double n : solutions) {
+            out.append(n).append(" ");
+        }
+        return out.toString();
     }
 }
 
