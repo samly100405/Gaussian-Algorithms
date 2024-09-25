@@ -69,10 +69,13 @@ public class Main {
         try {
             LinearSolver solver = generateSolver(a);
             System.out.println(solver.getSolutionString());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
         }
-
+        catch (NullPointerException e) {
+            System.out.println("You must provide a file name.");
+        }
+        catch (IOException e) {
+            System.out.println("File does not exist.");
+        }
 
     }
 }
