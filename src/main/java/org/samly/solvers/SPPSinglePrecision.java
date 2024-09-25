@@ -39,10 +39,13 @@ public class SPPSinglePrecision implements LinearSolver {
         // Forward elimination
 
         // Init scaling factors
+        // NOTE: Math.abs() for some reason is especially slow with floats (not doubles) ????
+        // Manually finding the abs value improved performance significantly.
         for (int row = 0; row < variables; row++) {
-            float max = Math.abs(coefficients[row][0]);
-            for (int col = 1; col < variables; col++) {
-                float val = Math.abs(coefficients[row][col]);
+            float max = -1;
+            for (int col = 0; col < variables; col++) {
+                float val = coefficients[row][col];
+                if (val < 0) val = -val;
                 if (val > max) max = val;
             }
             scalingFactors[row] = max;
@@ -53,9 +56,12 @@ public class SPPSinglePrecision implements LinearSolver {
             // Use SPP to determine pivot
             int maxIndex = pivot;
             for (int pivot1 = pivot + 1; pivot1 < variables; pivot1++) {
-                if (Math.abs(coefficients[idx[pivot1]][pivot] / scalingFactors[idx[pivot1]])
-                        > Math.abs(coefficients[idx[pivot]][pivot] / scalingFactors[idx[pivot]])
-                ) {
+                float p1Val = coefficients[idx[pivot1]][pivot] / scalingFactors[idx[pivot1]];
+                if (p1Val < 0) p1Val = -p1Val;
+
+                float pVal = coefficients[idx[pivot]][pivot] / scalingFactors[idx[pivot]];
+
+                if (p1Val > pVal) {
                     maxIndex = pivot1;
                 }
             }
