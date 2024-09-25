@@ -1,19 +1,78 @@
 package org.samly;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import com.beust.jcommander.JCommander;
+import org.samly.cli.Args;
+import org.samly.solvers.*;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Scanner;
+
 public class Main {
-    public static void main(String[] args) {
-        // Press Cmd+. with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        // Press Ctrl+F5 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+    private static LinearSolver generateSolver(Args args)
+            throws IOException {
+        Path filePath = Paths.get(args.getFileName());
+        Scanner s = new Scanner(filePath);
 
-            // Press F5 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing F9.
-            System.out.println("i = " + i);
+        int vars = s.nextInt();
+
+
+        if (args.isDouble()){
+            double[][] coefficients = new double[vars][vars];
+            double[] constants    = new double[vars];
+
+            for (int row = 0; row < vars; row++) {
+                for (int col = 0; col < vars; col++) {
+                    coefficients[row][col] = s.nextFloat();
+                }
+            }
+
+            for (int i = 0; i < vars; i++) {
+                constants[i] = s.nextFloat();
+            }
+
+            if (args.isSPP()) return new SPPDoublePrecision(vars, coefficients, constants);
+            return new NaiveDoublePrecision(vars, coefficients, constants);
         }
+        else {
+            float[][] coefficients = new float[vars][vars];
+            float[] constants      = new float[vars];
+
+
+            for (int row = 0; row < vars; row++) {
+                for (int col = 0; col < vars; col++) {
+                    coefficients[row][col] = s.nextFloat();
+                }
+            }
+
+            for (int i = 0; i < vars; i++) {
+                constants[i] = s.nextFloat();
+            }
+
+            if (args.isSPP()) return new SPPSinglePrecision(vars, coefficients, constants);
+            return new NaiveSinglePrecision(vars, coefficients, constants);
+        }
+    }
+
+    public static void main(String[] args) {
+        // TODO: implement file reading
+
+        Args a = new Args();
+        JCommander.newBuilder()
+                .addObject(a)
+                .build()
+                .parse(args);
+
+
+        try {
+            LinearSolver solver = generateSolver(a);
+            System.out.println(solver.getSolutionString());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+
     }
 }
