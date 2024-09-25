@@ -75,7 +75,7 @@ public final class NaiveSinglePrecision implements LinearSolver {
         if (!solved) solve();
 
         StringBuilder out = new StringBuilder();
-        for (double n : solutions) {
+        for (float n : solutions) {
             out.append(n).append(" ");
         }
         return out.toString();

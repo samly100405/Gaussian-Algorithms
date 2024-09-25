@@ -53,8 +53,8 @@ public class SPPDoublePrecision implements LinearSolver {
             // Use SPP to determine pivot
             int maxIndex = pivot;
             for (int pivot1 = pivot + 1; pivot1 < variables; pivot1++) {
-                if (Math.abs(coefficients[pivot1][pivot] / scalingFactors[pivot1])
-                        > Math.abs(coefficients[pivot][pivot] / scalingFactors[pivot])
+                if (Math.abs(coefficients[idx[pivot1]][pivot] / scalingFactors[idx[pivot1]])
+                        > Math.abs(coefficients[idx[pivot]][pivot] / scalingFactors[idx[pivot]])
                 ) {
                     maxIndex = pivot1;
                 }

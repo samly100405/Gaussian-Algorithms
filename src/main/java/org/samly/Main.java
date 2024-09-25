@@ -26,12 +26,12 @@ public class Main {
 
             for (int row = 0; row < vars; row++) {
                 for (int col = 0; col < vars; col++) {
-                    coefficients[row][col] = s.nextFloat();
+                    coefficients[row][col] = s.nextDouble();
                 }
             }
 
             for (int i = 0; i < vars; i++) {
-                constants[i] = s.nextFloat();
+                constants[i] = s.nextDouble();
             }
 
             if (args.isSPP()) return new SPPDoublePrecision(vars, coefficients, constants, args.isShowSteps());
@@ -69,9 +69,12 @@ public class Main {
 
         try {
             LinearSolver solver = generateSolver(a);
+
             long start = System.nanoTime();
-            String solution = solver.getSolutionString();
+            solver.solve();
             long duration = System.nanoTime() - start;
+
+            String solution = solver.getSolutionString();
             FileWriter f = new FileWriter(a.getOutputFile());
             f.write(solution);
             f.close();
