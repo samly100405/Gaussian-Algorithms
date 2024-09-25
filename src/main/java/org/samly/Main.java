@@ -85,6 +85,7 @@ public class Main {
             System.out.println("You must provide a file name.");
         }
         catch (IOException e) {
+            System.out.println(a.getFileName());
             System.out.println("File does not exist.");
         }
 
