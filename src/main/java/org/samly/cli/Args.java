@@ -30,4 +30,16 @@ public class Args {
     public String getOutputFile() {
         return outputFile;
     }
+
+    public String getDescription() {
+        String out = "";
+
+        if (isSPP) out += "Scaled Partial Pivoting\n";
+        else       out += "Naive Gaussian Elimination\n";
+
+        if (isDouble) out += "Double Precision\n";
+        else          out += "Single Precision\n";
+
+        return out;
+    }
 }
