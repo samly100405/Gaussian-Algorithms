@@ -42,6 +42,10 @@ public class NaiveDoublePrecision implements LinearSolver {
                 // do same for constants
                 constants[row] -= scale * constants[pivot];
             }
+            for (int i = 0; i < variables; i++) {
+                System.out.println(Arrays.toString(coefficients[i]) + "\t" +constants[i]);
+            }
+            System.out.println("~~~");
         }
 
 
