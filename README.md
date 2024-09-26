@@ -18,4 +18,4 @@
 2. Give the scripts execute permissions.
 3. The `solve.bash sys1` script will sys1 using all four methods and output to respective file.
 4. The `clean.bash` script will remove all `.sol` files in the `data/` directory.
-5. Use the `generate_rand_system.py` script to generate a random solvable system of linear equations of `n` size.
+5. Use the `generate_rand_system.py` script to generate a random solvable system of linear equations of `n` size.g
