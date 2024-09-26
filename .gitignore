@@ -53,3 +53,4 @@ build/
 .DS_Store
 /.idea/
 data/*.sol
+data/sys_rand.lin
