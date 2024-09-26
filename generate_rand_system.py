@@ -7,7 +7,7 @@ def main():
         exit(1)
 
     n = int(sys.argv[1])
-    f = open("sys_rand.lin", "w")
+    f = open("data/sys_rand.lin", "w")
     f.write(str(n))
     f.write("\n")
     coefficients = numpy.random.randn(n, n)
@@ -17,7 +17,7 @@ def main():
             f.write(str(col) + " ")
         f.write("\n")
 
-    f1 = open("sys_rand_expected.sol", "w")
+    f1 = open("data/sys_rand_expected.sol", "w")
     solutions = numpy.random.randn(1, n)
 
     for s in solutions[0]:
